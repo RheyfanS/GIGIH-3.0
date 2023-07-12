@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>coba - coba</title>
+  <script>
+    function validate() {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      if (email === "" || password === "") {
+        alert("email atau password tidak boleh kosong!");
+        return false;
+    }
+
+      const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+      if (!email.match(emailRegex)) {
+        alert("sads");
+        return false;
+    }
+
+      if (password.length < 6) {
+        alert("password harus lebih dari 6 karakter");
+        return false;
+    }
+      
+      alert("anda berhasil");
+      return true;
+    }
+  </script>
+</head>
+<body>
+  <form onsubmit="return validate()">
+    <label for="email">Email:</label><br>
+    <input type="text" id="email" name="email"><br>
+
+    <label for="password">Password:</label><br>
+    <input type="text" id="password" name="password"><br><br>
+
+    <input type="submit" value="Submit">
+  </form>
+</body>
+</html>
