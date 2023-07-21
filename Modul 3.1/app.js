@@ -1,13 +1,26 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-const playlistRoutes = require('./routes/playlistRoutes');
-const db = require('./db');
-
+const mongoose = require('mongoose');
 const app = express();
-app.use(bodyParser.json());
+const PORT = 3000;
 
-app.use('/playlist', playlistRoutes);
+// Koneksi ke database MongoDB
+mongoose.connect('mongodb://127.0.0.1:27017/spotify', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
-app.listen(3000, () => {
-  console.log('Server berjalan pada port 3000...');
+// Middlewares
+app.use(express.json());
+
+// Routes
+const songRoutes = require('./routes/songRoutes');
+const artistRoutes = require('./routes/artistRoutes');
+const popularSongRoutes = require('./routes/popularSongRoutes');
+
+app.use('/songs', songRoutes);
+app.use('/artists', artistRoutes);
+app.use('/popular-songs', popularSongRoutes);
+
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
 });
